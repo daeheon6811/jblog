@@ -9,19 +9,54 @@
 	 INSERT
 	 INTO
 	 category 
-	 VALUES(null , #{name} ,#{desc} ,#{reg_date} ,#{blog_id})
+	 VALUES(null , #{name} ,#{desc} ,now() ,#{blog_id})
 	]]>
 
 	</insert>
 	
 	<select id="findAllCount" resultType="double">
 <![CDATA[
-select count(*) from category
+SELECT count(*) 
+FROM 
+category
 	]]>
 	</select>
+	
+	<select id="findCountByPostNo" resultType="double" parameterType="map">
+<![CDATA[
+SELECT count(*) 
+FROM 
+category a , post b
+WHERE 1 = 1
+AND a.blog_id = #{id}
+AND b.category_no = a.no
+AND b.category_no = #{no}
+	]]>
+	</select>
+	
+<select id="findByList" parameterType="map"
+		resultType="categoryvo">
+<![CDATA[
+ SELECT a.no , a.name , a.desc, a.reg_date , a.blog_id
+ FROM
+ category a
+ WHERE 1 = 1
+ AND a.blog_id = #{id}
+	]]>
+</select>
 
+<select id="findByNo" parameterType="map"
+		resultType="categoryvo">
+<![CDATA[
+ SELECT a.no , a.name , a.desc , a.reg_date , a.blog_id
+ FROM
+ category a
+ WHERE 1 = 1
+AND a.blog_id = #{id}
+ AND a.no  = #{no}
 
-
-
-
+ 
+	]]>
+	</select>
+	
 </mapper>

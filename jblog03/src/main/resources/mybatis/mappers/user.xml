@@ -5,24 +5,36 @@
 <!-- 요기선 파라미터값만 넣으면됨 -->
 <mapper namespace="user">
 
-
 	<insert id="insert" parameterType="uservo">	
 	<![CDATA[ 
 	 INSERT
 	 INTO
 	 user 
-	 VALUES(#{id} ,#{name} ,#{password} ,#{join_date})
+	 VALUES(#{id} ,#{name} ,#{password} ,now())
 	]]>
-
 	</insert>
+<!-- 요기선 아무거나 넣어도됨 -->
+	<select id="findById" parameterType="string" resultType="uservo">
+	<![CDATA[
+  SELECT  
+  id, name, password, join_date 
+  FROM user 
+  WHERE 1 = 1
+  AND ID = #{id}
+  	]]>
+	</select>
 
 
 
-
-	<select id="findByEmailAndPassword" parameterType="map"
+	<select id="findByIdAndPassword" parameterType="map"
 		resultType="uservo">
 	<![CDATA[
-select id, name , password from user  where email = #{e} and password = #{p}
+SELECT 
+id, name , password 
+FROM user  
+WHERE 1 = 1 
+AND id = #{i} 
+AND password = #{p}
   	]]>
 	</select>
 

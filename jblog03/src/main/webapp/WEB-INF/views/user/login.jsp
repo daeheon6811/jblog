@@ -13,7 +13,7 @@
 <body>
 	<div class="center-content">
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
-		<form class="login-form">
+		<form class="login-form" method="post" action="${pageContext.request.contextPath}//user/auth">
       		<label>아이디</label> <input type="text" name="id">
       		<label>패스워드</label> <input type="text" name="password">
       		<input type="submit" value="로그인">

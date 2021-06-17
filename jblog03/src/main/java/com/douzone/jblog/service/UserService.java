@@ -19,6 +19,13 @@ public class UserService {
 		userRepository.insertUser(vo);
 	}
 	
+	public UserVo getUser(String id) {
+		return  userRepository.getUser(id);
+	}
+	
+	public UserVo getUser(String id , String password) {
+		return  userRepository.getUser(id, password);
+	}
 	
 	
 	

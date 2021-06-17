@@ -16,8 +16,25 @@
 	<mvc:annotation-driven />
 	<context:annotation-config />
 	<context:component-scan
-		base-package="com.douzone.jblog.controller" />
-
+		base-package="com.douzone.jblog.controller"  />
+<!-- Interceptros -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/auth" />
+			<bean class="com.douzone.jblog.security.Logininteceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/logout" />
+			<bean class="com.douzone.jblog.security.Logoutinteceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:mapping path="/user/auth" />
+			<mvc:mapping path="/user/logout" />
+			<mvc:mapping path="/assets/**" />
+			<bean class="com.douzone.jblog.security.Authinteceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -27,5 +44,19 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
+	
+	<!-- 멀티파트 리졸버 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
+	</bean>
+	<!-- resource mapping -->
+	<mvc:resources location="file:/uploads-mysite/"
+		mapping="/assets/uploads/**" />
 
 </beans>

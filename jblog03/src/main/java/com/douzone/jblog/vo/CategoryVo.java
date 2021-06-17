@@ -7,6 +7,10 @@ public class CategoryVo {
 	private String desc;
 	private String reg_date;
 	private String blog_id;
+	
+	/* */
+	private int post_count;
+	
 	public Long getNo() {
 		return no;
 	}
@@ -41,6 +45,12 @@ public class CategoryVo {
 	public String toString() {
 		return "category [no=" + no + ", name=" + name + ", desc=" + desc + ", reg_date=" + reg_date + ", blog_id="
 				+ blog_id + "]";
+	}
+	public double getPost_count() {
+		return post_count;
+	}
+	public void setPost_count(int post_count) {
+		this.post_count = post_count;
 	}
 	
 	

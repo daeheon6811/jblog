@@ -6,8 +6,37 @@
 	<![CDATA[ 
 	 INSERT
 	 INTO
-	 user 
-	 VALUES(null , #{title} ,#{contents} ,#{reg_date} ,#{category_no})
+	 post 
+	 VALUES(null , #{title} ,#{contents} ,now() ,#{category_no})
 	]]>
 	</insert>
+
+
+	<select id="findByList" parameterType="map" resultType="postvo">
+<![CDATA[
+ SELECT a.no , a.title , a.contents, a.reg_date , a.category_no , b.blog_id
+ FROM
+ post a , category b
+ WHERE 1=1
+ AND b.blog_id=#{id}
+ AND a.category_no=b.no
+ AND a.category_no=#{no}
+ 
+	]]>
+	</select>
+	
+	
+	<select id="findByNo" parameterType="map" resultType="postvo">
+<![CDATA[
+ SELECT a.no , a.title , a.contents, a.reg_date , a.category_no
+ FROM
+ post a , category b
+ WHERE 1 = 1
+ AND b.blog_id = #{id}
+ AND a.category_no = b.no
+ AND a.no = #{no}
+ 
+	]]>
+	</select>
+
 </mapper>

@@ -7,8 +7,16 @@
 <h1 class="logo"
 	style="background:url(${pageContext.request.contextPath}/assets/images/logo.jpg)">JBlog</h1>
 <ul class="menu">
-	<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
-	<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
-	<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-	<li><a href="${pageContext.request.contextPath}/${myId}">내블로그</a></li>
+	<c:choose>
+		<c:when test="${empty authUser }">
+			<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
+			<li><a href="${pageContext.request.contextPath}/${authUser.id}">내블로그</a></li>
+		</c:when>
+		<c:otherwise>
+			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+			<li><a href="${pageContext.request.contextPath}/${authUser.id}">내블로그</a></li>
+
+		</c:otherwise>
+		</c:choose>
 </ul>

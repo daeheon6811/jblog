@@ -17,4 +17,17 @@ public class BlogService {
 	public void insertBlog(BlogVo vo) {	
 	   blogRepository.insertBlog(vo);	
 	}
+	
+	public void update(BlogVo vo) {	
+		blogRepository.update(vo);					
+	}
+	
+	public BlogVo findByNo(String id) {
+    	return blogRepository.findByNo(id);
+    	}
+	
+	
+	
+	
+	
 }
