@@ -61,10 +61,11 @@ public class Authinteceptor extends HandlerInterceptorAdapter {
 		// 7. admin일 경우
 		String id = auth.role().toString();
 		System.out.println("Authinteceptor : " + id);
-		if ("".equals(id)) {
+		
+		if (!("USER".equals(id))) {
 			// admin임을 알 수 있는 조건을 작성한다.
-			// ex) 서비스의 id가 root이면 admin이다.
-			if ("".equals(authUser.getId()) == false) { // admin이 아니므로 return false
+			// ex) 서비스의 id가 null이 아니라면 접속이 가능해진다
+			if( "".equals(authUser.getId()) == true ){   // admin이 아니므로 return false
 				response.sendRedirect(request.getContextPath());
 				return false;
 			}

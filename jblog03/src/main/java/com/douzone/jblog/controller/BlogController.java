@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.jblog.security.Auth;
 import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.service.CategoryService;
@@ -48,6 +49,15 @@ public class BlogController {
 			@PathVariable("pathNo2") Optional<Long> pathNo2, Model model) {
 
 		
+		if(id.equals("guest")) {
+	
+			String title = "안녕하세요. 비회원 페이지 입니다. ";
+			String contents = "안녕하세요. 비회원 내용 입니다. ";
+			model.addAttribute("title", title);
+			model.addAttribute("contents", contents);
+			return "blog/main";
+		}
+		
 		Long categoryNo = 0L;
 		Long postNo = 0L;
 
@@ -69,7 +79,7 @@ public class BlogController {
 		} else {
 			String title = "안녕하세요. 기본 제목 입니다 . ";
 			String contents = "안녕하세요. 기본 내용 입니다 . ";
-			model.addAttribute("contents", title);
+			model.addAttribute("title", title);
 			model.addAttribute("contents", contents);
 
 		}
@@ -85,6 +95,7 @@ public class BlogController {
 		return "blog/main";
 	}
 
+	@Auth(role = "USER")
 	@GetMapping("admin/basic")
 	public String adminBasic(@AuthUser UserVo authUser , Model model) {
 	
@@ -93,6 +104,7 @@ public class BlogController {
 		return "blog/admin/basic";
 	}
 
+	@Auth(role = "USER")
 	@RequestMapping(value = "admin/basic" , method =  RequestMethod.POST)
 	public String adminBasic(@RequestParam("file") MultipartFile file, @AuthUser UserVo authUser,
 			@ModelAttribute BlogVo blogVo) {
@@ -110,6 +122,7 @@ public class BlogController {
 		return "redirect:/" + authUser.getId();
 	}
 
+	@Auth(role = "USER")
 	@GetMapping("admin/category")
 	public String adminCategory(@AuthUser UserVo authUser, Model model) {
 
@@ -126,6 +139,7 @@ public class BlogController {
 		return "blog/admin/category";
 	}
 
+	@Auth(role = "USER")
 	@PostMapping("admin/category")
 	public String adminCategory(@AuthUser UserVo authUser, @ModelAttribute CategoryVo categoryVo) {
 
@@ -135,6 +149,7 @@ public class BlogController {
 		return "redirect:/" + authUser.getId();
 	}
 
+	@Auth(role = "USER")
 	@GetMapping("admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, Model model )  {
 
@@ -143,7 +158,8 @@ public class BlogController {
 		model.addAttribute("categoryList", categoryService.findByList(authUser.getId()));
 		return "blog/admin/write";
 	}
-
+	
+	@Auth(role = "USER")
 	@PostMapping("admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, @ModelAttribute PostVo postVo,
 			@ModelAttribute(value = "category") Long no) {
