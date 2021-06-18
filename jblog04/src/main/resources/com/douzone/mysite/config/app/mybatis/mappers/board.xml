@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="findByNo" resultType="boardvo"
+		parameterType="long">
+	<![CDATA[
+select a.no as no, a.title as title , a.contents as contents,
+				a.reg_date as redDate, a.hit as hit, a.group_no as groupNo, a.order_no as orderNo,
+		  		a.depth as depth,a.user_no as userNo, b.name as userName
+		  from board a, user b 
+		 where a.user_no = b.no 
+		   and a.no=#{boardNo } 
+  	]]>
+	</select>
+
+	<insert id="insert"
+		parameterType="boardvo">	
+	<![CDATA[ 
+                    insert into 
+                    board 
+                    values(null , #{title} , #{contents} ,  sysdate(), #{hit} , #{groupNo} ,#{orderNo} , #{depth} ,#{userNo} )
+                    
+	]]>
+
+
+	</insert>
+
+	<update id="replyUpdate" parameterType="int">
+		<![CDATA[ 
+update board  set order_no=?+1 where group_no= #{groupNo} 
+and order_no>= #{orderNo} 
+						]]>
+	</update>
+
+	<update id="updateView" parameterType="map">
+		<![CDATA[ 
+update board set title = #{title} , contents = #{contents}  where no = #{no} 
+						]]>
+	</update>
+
+	<update id="updateHit" parameterType="map">
+		<![CDATA[ 
+update board set hit = hit + 1 where no = #{no}
+						]]>
+	</update>
+
+	<delete id="delete" parameterType="long">
+<![CDATA[
+delete from board where no = #{no}
+	]]>
+	</delete>
+
+
+	<select id="findAllCount" resultType="double">
+<![CDATA[
+select count(*) from board
+	]]>
+	</select>
+
+
+	<select id="findAllSearch" parameterType="map"
+		resultType="boardvo">
+<![CDATA[
+ select a.no as no,  a.title as title  , a.contents as content , a.reg_date as redDate, a.depth as depth , a.hit as hit , b.no as UserNo , b.name as UserName
+ from board a ,user b
+where a.user_no = b.no
+and a.title like concat('%', #{searchValue}, '%')
+order by  a.group_no  desc  , a.order_no asc limit #{first} , #{second}
+	]]>
+	</select>
+
+	<select id="findMaxGroupNo" resultType="int">
+<![CDATA[
+select ifnull(max(group_no),0) +1 from board
+	]]>
+	</select>
+
+
+
+</mapper>

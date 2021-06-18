@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 요기선 파라미터값만 넣으면됨 -->
+<mapper namespace="user">
+	<select id="findByEmailAndPassword" parameterType="map"
+		resultType="uservo">
+	<![CDATA[
+select no, name , role from user  where email = #{e} and password = #{p}
+  	]]>
+	</select>
+
+	<!-- 요기선 아무거나 넣어도됨 -->
+	<select id="findByNo" parameterType="long" resultType="uservo">
+	<![CDATA[
+      select no, email, password, name , gender from user  where no = #{no}
+  	]]>
+	</select>
+
+	<!-- 요기선 아무거나 넣어도됨 -->
+	<select id="findByEmail" parameterType="string" resultType="uservo">
+	<![CDATA[
+  select  no, email, password, name , gender from user  where email = #{email}
+  	]]>
+	</select>
+	<update id="update" parameterType="uservo">
+		<choose>
+			<when test='password == "" '>
+			 	<![CDATA[
+       update user set name = #{name} , gender = #{gender} where no = #{no}
+  	]]>
+			</when>
+			<otherwise>
+ 	<![CDATA[
+       update user set name = #{name} , gender = #{gender} where no = #{no}
+  	]]>
+			</otherwise>
+		</choose>
+
+	</update>
+
+<!-- 
+<insert id = "insert" parameterType = "boardvo">
+<choose>
+
+<when>
+
+<when test ='groupNo == null'>
+
+</when>
+<otherwise>
+</otherwise>
+
+</choose>
+
+
+
+
+ -->
+	<insert id="insert" parameterType="uservo">	
+	<![CDATA[ 
+	 insert
+	 into 
+	 user 
+	 values(null , #{name} ,#{email} ,#{password} ,#{gender} , #{role})
+	 
+	]]>
+
+		<selectKey keyProperty="no" resultType="long" order="AFTER">	
+	<![CDATA[
+	select last_insert_id()
+	]]>
+		</selectKey>
+	</insert>
+
+	<delete id="delete" parameterType="uservo">
+	<![CDATA[ 
+	 delete from guestbook where no = #{no} and password = #{password}
+	]]>
+	</delete>
+
+</mapper>
