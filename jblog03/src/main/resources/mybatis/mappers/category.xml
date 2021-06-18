@@ -21,7 +21,15 @@ FROM
 category
 	]]>
 	</select>
-	
+	<select id="findByOne" resultType="categoryvo" parameterType="map">
+<![CDATA[
+	SELECT a.name , a.no  from category a
+	WHERE 1 = 1
+	AND a.blog_id = #{id}
+	 limit 0 , 1
+	]]>
+	</select>
+
 	<select id="findCountByPostNo" resultType="double" parameterType="map">
 <![CDATA[
 SELECT count(*) 

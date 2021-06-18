@@ -33,4 +33,8 @@ public class CategoryService {
 		return categoryRepository.findCountByPostNo(id,no);
 	}
 	
+	public CategoryVo findByOne(String id) {
+		return categoryRepository.findByOne(id);
+	}
+	
 }

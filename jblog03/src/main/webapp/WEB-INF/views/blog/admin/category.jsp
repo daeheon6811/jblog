@@ -26,9 +26,9 @@
 						<th>삭제</th>
 					</tr>
 
-					<c:forEach var="vo" items="${categoryList}" begin="0">
+					<c:forEach var="vo" items="${categoryList}" begin="0" varStatus="status">
 						<tr>
-							<td>${vo.no}</td>
+							<td>${status.count}</td>
 							<td>${vo.name}</td>
 							<td>${vo.post_count}</td>
 							<td>${vo.desc}</td>

@@ -7,13 +7,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.jblog.service.CategoryService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Repository
 public class UserRepository {
 	
+	
+	@Autowired
+	CategoryService categoryService;
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -22,10 +27,16 @@ public class UserRepository {
 	
 	
 	
-	public void insertUser(UserVo userVo , BlogVo  blogVo , CategoryVo categoryVo ) {	
+	public void insertUser(UserVo userVo , BlogVo  blogVo , CategoryVo categoryVo  , PostVo postVo) {	
 		sqlSession.insert(namespace + "insert" , userVo);	
 		sqlSession.insert("blog." + "insert" , blogVo);
+		
+		
 		sqlSession.insert("category." + "insert" , categoryVo);
+		
+		CategoryVo categoryVoOne =  categoryService.findByOne(userVo.getId());
+		postVo.setCategory_no(categoryVoOne.getNo());
+		sqlSession.insert("post." + "insert" , postVo);
 	}
 	
 	public UserVo getUser(String id) {

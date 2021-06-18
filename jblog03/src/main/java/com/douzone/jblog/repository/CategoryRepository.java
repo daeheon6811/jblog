@@ -47,4 +47,10 @@ public class CategoryRepository {
 		return sqlSession.selectOne(namespace + "findCountByPostNo", map);
 	}
 
+	public CategoryVo findByOne(String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		return sqlSession.selectOne(namespace + "findByOne", map);
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.douzone.jblog.repository.UserRepository;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Service
@@ -17,9 +18,10 @@ public class UserService {
 	
 	
 	
-	public void insertUser(UserVo userVo , BlogVo  blogVo , CategoryVo categoryVo ) {
+	public void insertUser(UserVo userVo , BlogVo  blogVo , CategoryVo categoryVo
+			, PostVo postVo) {
 		
-		userRepository.insertUser(userVo,blogVo,categoryVo);
+		userRepository.insertUser(userVo,blogVo,categoryVo , postVo);
 	}
 	
 	public UserVo getUser(String id) {

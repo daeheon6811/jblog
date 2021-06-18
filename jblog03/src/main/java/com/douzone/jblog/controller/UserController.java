@@ -15,6 +15,7 @@ import com.douzone.jblog.service.CategoryService;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 @Controller
@@ -49,6 +50,7 @@ public class UserController {
 		if (userVo.getId().equals("guest")) {
 			return "user/join";
 		}
+		
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setDesc("기본");
 		categoryVo.setName("기본");
@@ -56,8 +58,14 @@ public class UserController {
 		BlogVo blogVo = new BlogVo();
 		blogVo.setId(userVo.getId());
 		blogVo.setTitle("test");
-		blogVo.setLogo("test");
-		userService.insertUser(userVo, blogVo, categoryVo);
+		blogVo.setLogo("/assets/images/spring-logo.jpg");
+		PostVo postVo = new PostVo();
+		postVo.setBlog_id(userVo.getId());
+		postVo.setTitle("기본 제목");
+		postVo.setContents("기본 내용");		
+		
+		
+		userService.insertUser(userVo, blogVo, categoryVo , postVo);
 
 		return "redirect:/user/joinsuccess";
 	}

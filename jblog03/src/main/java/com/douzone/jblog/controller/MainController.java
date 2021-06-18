@@ -12,6 +12,8 @@ public class MainController {
 	public String index() {
 		return "main/index";
 	}
+	
+
 
 
 	

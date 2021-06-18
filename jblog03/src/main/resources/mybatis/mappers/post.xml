@@ -10,7 +10,15 @@
 	 VALUES(null , #{title} ,#{contents} ,now() ,#{category_no})
 	]]>
 	</insert>
-
+<select id="findByOne" resultType="postvo" parameterType="map">
+<![CDATA[
+SELECT b.no , c.title , c.contents FROM user a , category b , post c
+WHERE 1 =1
+AND a.id = #{id}
+AND b.no = #{no}
+limit 0 , 1
+	]]>
+	</select>
 
 	<select id="findByList" parameterType="map" resultType="postvo">
 <![CDATA[

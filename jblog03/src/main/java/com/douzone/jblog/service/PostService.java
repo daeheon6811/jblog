@@ -25,5 +25,7 @@ public class PostService {
 	public PostVo findByNo(String id , Long no) {
 		return postRepository.findByNo(id , no);
 	}
-
+	public PostVo findByOne(String id , Long no) {
+		return postRepository.findByOne( id ,  no);
+	}
 }

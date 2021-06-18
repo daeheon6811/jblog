@@ -21,22 +21,27 @@ public class PostRepository {
 		sqlSession.insert(namespace + "insert", vo);
 	}
 
-	public List<PostVo> findByList(String id , Long no) {
-		
-		System.out.println( "```````````````````````id : " + id  +  "no :"+ no);
+	public List<PostVo> findByList(String id, Long no) {
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("no", no);
-		
+
 		return sqlSession.selectList(namespace + "findByList", map);
 	}
-	
-	public PostVo findByNo(String id , Long no) {
+
+	public PostVo findByNo(String id, Long no) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("no", no);
 		return sqlSession.selectOne(namespace + "findByNo", map);
 	}
-	
+
+	public PostVo findByOne(String id, Long no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("no", no);
+		return sqlSession.selectOne(namespace + "findByOne" , map);
+	}
 
 }

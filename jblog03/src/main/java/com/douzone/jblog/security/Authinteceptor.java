@@ -61,12 +61,12 @@ public class Authinteceptor extends HandlerInterceptorAdapter {
 
 		// 7. admin일 경우
 		String role = auth.role().toString();
-		String[] divId = request.getRequestURL().toString().split("/");	
-		String id = divId[4];
+		String[] divId = request.getRequestURI().toString().split("/");	
+		String id = divId[2];
 	
-				
-		System.out.println("role : " + role);
 
+				
+	
 	
 			if( id.equals(authUser.getId()) == false){   // admin이 아니므로 return false
 				response.sendRedirect(request.getContextPath());
