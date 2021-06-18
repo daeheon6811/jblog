@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Target( value = {ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Auth {
 	//public String value() default "USER";
+public @interface Auth {
 	public String role() default "GUEST";
-	public boolean test() default false;
+	public String id() default ""; 
 }

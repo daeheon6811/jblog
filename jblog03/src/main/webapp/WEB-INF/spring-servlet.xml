@@ -13,7 +13,33 @@
 <!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler />
 	<!-- Path Null 처리 하기 위한것? -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<!-- Validator, conversionService, messageConverter를 자동으로 등록 -->
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+		<mvc:argument-resolvers>
+			<bean
+				class="com.douzone.jblog.security.AuthUserHandlerMethodArgumentResolver"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	
+	
 	<context:annotation-config />
 	<context:component-scan
 		base-package="com.douzone.jblog.controller"  />
@@ -58,5 +84,16 @@
 	<!-- resource mapping -->
 	<mvc:resources location="file:/uploads-mysite/"
 		mapping="/assets/uploads/**" />
+		
+		<!-- 6. MessageSource -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+			</list>
+		</property>
+	</bean>
+	
 
 </beans>

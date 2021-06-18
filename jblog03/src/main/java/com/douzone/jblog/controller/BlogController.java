@@ -50,6 +50,8 @@ public class BlogController {
 
 		
 		if(id.equals("guest")) {
+			
+		
 	
 			String title = "안녕하세요. 비회원 페이지 입니다. ";
 			String contents = "안녕하세요. 비회원 내용 입니다. ";
@@ -66,15 +68,23 @@ public class BlogController {
 			postNo = pathNo2.get();
 
 			PostVo postVo = postService.findByNo(id,postNo);
-			model.addAttribute("title", postVo.getTitle());
-			model.addAttribute("contents", postVo.getContents());
-
-			model.addAttribute("postList",postService.findByList(id,categoryNo));
+			if(postVo == null) {
+				return "blog/main";
+			}
+			else {
+				model.addAttribute("title", postVo.getTitle());
+				model.addAttribute("contents", postVo.getContents());
+				model.addAttribute("postList",postService.findByList(id,categoryNo));
+			}	
 		} else if (pathNo1.isPresent()) {
 
 			categoryNo = pathNo1.get();
-			
-			model.addAttribute("postList",postService.findByList(id,categoryNo));
+			if(postService.findByList(id,categoryNo) == null) {
+				return "blog/main";
+			}
+			else {
+				model.addAttribute("postList",postService.findByList(id,categoryNo));
+			}
 
 		} else {
 			String title = "안녕하세요. 기본 제목 입니다 . ";
@@ -88,14 +98,10 @@ public class BlogController {
 		model.addAttribute("blogVo", blogService.findByNo(id));
 		model.addAttribute("categoryList", cgList);
 
-		System.out.println("id:" + id);
-		System.out.println("category:" + categoryNo);
-		System.out.println("post:" + postNo);
-
 		return "blog/main";
 	}
 
-	@Auth(role = "USER")
+	@Auth(role = "USER"   )
 	@GetMapping("admin/basic")
 	public String adminBasic(@AuthUser UserVo authUser , Model model) {
 	
@@ -104,7 +110,7 @@ public class BlogController {
 		return "blog/admin/basic";
 	}
 
-	@Auth(role = "USER")
+	@Auth
 	@RequestMapping(value = "admin/basic" , method =  RequestMethod.POST)
 	public String adminBasic(@RequestParam("file") MultipartFile file, @AuthUser UserVo authUser,
 			@ModelAttribute BlogVo blogVo) {
@@ -122,7 +128,7 @@ public class BlogController {
 		return "redirect:/" + authUser.getId();
 	}
 
-	@Auth(role = "USER")
+	@Auth
 	@GetMapping("admin/category")
 	public String adminCategory(@AuthUser UserVo authUser, Model model) {
 
@@ -139,17 +145,17 @@ public class BlogController {
 		return "blog/admin/category";
 	}
 
-	@Auth(role = "USER")
+	@Auth
 	@PostMapping("admin/category")
 	public String adminCategory(@AuthUser UserVo authUser, @ModelAttribute CategoryVo categoryVo) {
 
 		categoryVo.setBlog_id(authUser.getId());
 
 		categoryService.insertCategory(categoryVo);
-		return "redirect:/" + authUser.getId();
+		return "redirect:/" + authUser.getId() + "/admin/category";
 	}
 
-	@Auth(role = "USER")
+	@Auth
 	@GetMapping("admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, Model model )  {
 
@@ -159,7 +165,7 @@ public class BlogController {
 		return "blog/admin/write";
 	}
 	
-	@Auth(role = "USER")
+	@Auth
 	@PostMapping("admin/write")
 	public String adminWrite(@AuthUser UserVo authUser, @ModelAttribute PostVo postVo,
 			@ModelAttribute(value = "category") Long no) {
