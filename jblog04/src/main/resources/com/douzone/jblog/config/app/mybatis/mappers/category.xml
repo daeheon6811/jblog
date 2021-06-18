@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+
+
+	<insert id="insert" parameterType="categoryvo">	
+	<![CDATA[ 
+	 INSERT
+	 INTO
+	 category 
+	 VALUES(null , #{name} ,#{desc} ,now() ,#{blog_id})
+	]]>
+
+	</insert>
+	
+	<select id="findAllCount" resultType="double">
+<![CDATA[
+SELECT count(*) 
+FROM 
+category
+	]]>
+	</select>
+	<select id="findByOne" resultType="categoryvo" parameterType="map">
+<![CDATA[
+	SELECT a.name , a.no  from category a
+	WHERE 1 = 1
+	AND a.blog_id = #{id}
+	 limit 0 , 1
+	]]>
+	</select>
+
+	<select id="findCountByPostNo" resultType="double" parameterType="map">
+<![CDATA[
+SELECT count(*) 
+FROM 
+category a , post b
+WHERE 1 = 1
+AND a.blog_id = #{id}
+AND b.category_no = a.no
+AND b.category_no = #{no}
+	]]>
+	</select>
+	
+<select id="findByList" parameterType="map"
+		resultType="categoryvo">
+<![CDATA[
+ SELECT a.no , a.name , a.desc, a.reg_date , a.blog_id
+ FROM
+ category a
+ WHERE 1 = 1
+ AND a.blog_id = #{id}
+	]]>
+</select>
+
+<select id="findByNo" parameterType="map"
+		resultType="categoryvo">
+<![CDATA[
+ SELECT a.no , a.name , a.desc , a.reg_date , a.blog_id
+ FROM
+ category a
+ WHERE 1 = 1
+AND a.blog_id = #{id}
+ AND a.no  = #{no}
+
+ 
+	]]>
+	</select>
+	
+</mapper>

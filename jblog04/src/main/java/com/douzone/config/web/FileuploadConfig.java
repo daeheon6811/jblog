@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-@PropertySource("classpath:com/douzone/mysite/config/web/fileupload.properties")
+@PropertySource("classpath:com/douzone/jblog/config/web/fileupload.properties")
 public class FileuploadConfig extends WebMvcConfigurerAdapter{
 	@Autowired
 	private Environment env;
