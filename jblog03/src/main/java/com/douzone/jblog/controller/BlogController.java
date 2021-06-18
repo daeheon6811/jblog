@@ -137,8 +137,9 @@ public class BlogController {
 
 	@Auth
 	@GetMapping("admin/category")
-	public String adminCategory(@AuthUser UserVo authUser, Model model) {
-
+	public String adminCategory(@AuthUser UserVo authUser, Model model ) {
+		model.addAttribute("blogVo", blogService.findByNo(authUser.getId()));
+		
 		List<CategoryVo> list = categoryService.findByList(authUser.getId());
 
 		/*
@@ -164,8 +165,8 @@ public class BlogController {
 
 	@Auth
 	@GetMapping("admin/write")
-	public String adminWrite(@AuthUser UserVo authUser, Model model) {
-
+	public String adminWrite(@AuthUser UserVo authUser, Model model , @ModelAttribute BlogVo blogVo) {
+		model.addAttribute("blogVo", blogService.findByNo(authUser.getId()));
 		model.addAttribute("categoryList", categoryService.findByList(authUser.getId()));
 		return "blog/admin/write";
 	}
