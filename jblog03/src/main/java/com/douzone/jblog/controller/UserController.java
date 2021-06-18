@@ -42,11 +42,13 @@ public class UserController {
 			 * List<ObjectError> list = result.getAllErrors(); for(ObjectError error : list)
 			 * { System.out.println(error); }
 			 */
-			//model.addAttribute("UserVo", user);
+			// model.addAttribute("UserVo", user);
 			model.addAllAttributes(result.getModel());
 			return "user/join";
 		}
-		
+		if (userVo.getId().equals("guest")) {
+			return "user/join";
+		}
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setDesc("기본");
 		categoryVo.setName("기본");
@@ -59,7 +61,7 @@ public class UserController {
 
 		return "redirect:/user/joinsuccess";
 	}
-	
+
 	@GetMapping("user/joinsuccess")
 	public String joinsuccess() {
 		return "/user/joinsuccess";

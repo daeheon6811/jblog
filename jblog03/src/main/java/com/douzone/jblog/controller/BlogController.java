@@ -50,9 +50,6 @@ public class BlogController {
 
 		
 		if(id.equals("guest")) {
-			
-		
-	
 			String title = "안녕하세요. 비회원 페이지 입니다. ";
 			String contents = "안녕하세요. 비회원 내용 입니다. ";
 			model.addAttribute("title", title);
