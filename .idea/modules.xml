@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jblog.iml" filepath="$PROJECT_DIR$/jblog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jblog03/jblog03.iml" filepath="$PROJECT_DIR$/jblog03/jblog03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jblog04/jblog04.iml" filepath="$PROJECT_DIR$/jblog04/jblog04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jblog05/jblog05.iml" filepath="$PROJECT_DIR$/jblog05/jblog05.iml" />
+    </modules>
+  </component>
+</project>

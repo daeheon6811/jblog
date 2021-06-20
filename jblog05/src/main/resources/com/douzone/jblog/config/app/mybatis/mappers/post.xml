@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="post">
+	<insert id="insert" parameterType="postvo">	
+	<![CDATA[ 
+	 INSERT
+	 INTO
+	 post 
+	 VALUES(null , #{title} ,#{contents} ,now() ,#{category_no})
+	]]>
+	</insert>
+<select id="findByOne" resultType="postvo" parameterType="map">
+<![CDATA[
+SELECT b.no , c.title , c.contents FROM user a , category b , post c
+WHERE 1 =1
+AND a.id = #{id}
+AND b.no = #{no}
+limit 0 , 1
+	]]>
+	</select>
+
+	<select id="findByList" parameterType="map" resultType="postvo">
+<![CDATA[
+ SELECT a.no , a.title , a.contents, a.reg_date , a.category_no , b.blog_id
+ FROM
+ post a , category b
+ WHERE 1=1
+ AND b.blog_id=#{id}
+ AND a.category_no=b.no
+ AND a.category_no=#{no}
+ 
+	]]>
+	</select>
+	
+	
+	<select id="findByNo" parameterType="map" resultType="postvo">
+<![CDATA[
+ SELECT a.no , a.title , a.contents, a.reg_date , a.category_no
+ FROM
+ post a , category b
+ WHERE 1 = 1
+ AND b.blog_id = #{id}
+ AND a.category_no = b.no
+ AND a.no = #{no}
+ 
+	]]>
+	</select>
+
+</mapper>
