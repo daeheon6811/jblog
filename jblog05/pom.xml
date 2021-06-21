@@ -5,7 +5,7 @@
     <artifactId>jblog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>jblog04</artifactId>
+  <artifactId>jblog05</artifactId>
   <packaging>war</packaging>
   
   <properties>
