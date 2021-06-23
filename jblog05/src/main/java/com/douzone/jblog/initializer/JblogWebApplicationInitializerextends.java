@@ -1,15 +1,14 @@
 package com.douzone.jblog.initializer;
 
-import com.douzone.jblog.config.AppConfig;
-import com.douzone.jblog.config.WebConfig;
+import javax.servlet.Filter;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.douzone.jblog.config.AppConfig;
+import com.douzone.jblog.config.WebConfig;
 
-import javax.servlet.Filter;
-
-class JblogWebApplicationInitializerextends extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class JblogWebApplicationInitializerextends extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
