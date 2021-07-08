@@ -18,6 +18,8 @@ public class JsonResult {
 		result = "fail";
 		this.message = message;
 	}
+	
+
 
 	public static JsonResult success(Object data) {
 		return new JsonResult(data);

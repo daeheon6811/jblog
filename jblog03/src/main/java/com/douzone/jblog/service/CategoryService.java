@@ -22,6 +22,10 @@ public class CategoryService {
 		return categoryRepository.findAllcount();
 	}
 	
+	public boolean delete(Long no) {
+		 return categoryRepository.delete(no);
+	}
+	
 	public List<CategoryVo> findByList(String id){
 		return categoryRepository.findByList(id);
 	}

@@ -24,6 +24,9 @@ public class CategoryRepository {
 	public double findAllcount() {
 		return sqlSession.selectOne(namespace + "findAllCount");
 	}
+	public boolean delete(Long no) {
+		return sqlSession.selectOne(namespace + "delete" , no);
+	}
 
 	public List<CategoryVo> findByList(String id) {
 		Map<String, Object> map = new HashMap<String, Object>();

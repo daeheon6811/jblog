@@ -14,6 +14,17 @@
 
 	</insert>
 	
+	<insert id="delete" parameterType="long">	
+	<![CDATA[ 
+	 DELETE
+	 FROM
+	 category
+	 WHERE = #{no}  
+	 
+	]]>
+
+	</insert>
+	
 	<select id="findAllCount" resultType="double">
 <![CDATA[
 SELECT count(*) 
